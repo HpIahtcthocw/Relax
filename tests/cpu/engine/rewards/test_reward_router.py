@@ -36,11 +36,7 @@ pytestmark = pytest.mark.skipif(not _HAS_FULL_PIPELINE, reason="Full pipeline re
 
 
 def _make_args(**overrides) -> SimpleNamespace:
-    """Mock args namespace with the same six keys existing tests use.
-
-    New router flags are intentionally absent from the defaults so these tests
-    double as a guard that the executor reads them with getattr.
-    """
+    """Mock args namespace with the reward fields the executor reads directly."""
     defaults = {
         "rm_type": "openr1mm",
         "custom_rm_path": None,
@@ -48,6 +44,10 @@ def _make_args(**overrides) -> SimpleNamespace:
         "reward_num_workers": 4,
         "rm_url": None,
         "reward_key": None,
+        "rm_type_infer": False,
+        "rm_type_fallback": None,
+        "disable_eval_async_judge": False,
+        "defer_reward_to_post_process": False,
     }
     defaults.update(overrides)
     return SimpleNamespace(**defaults)

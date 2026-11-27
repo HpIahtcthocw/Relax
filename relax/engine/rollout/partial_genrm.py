@@ -58,7 +58,7 @@ class PartialGenRM:
         if (
             getattr(args, "group_rm", False)
             or getattr(args, "custom_generate_function_path", None)
-            or getattr(args, "defer_reward_to_post_process", False)
+            or args.defer_reward_to_post_process
             or getattr(reward, "supports_async_eval", False)
         ):
             raise ValueError("Partial GenRM requires inline per-sample rewards and the default generation function")
@@ -206,7 +206,7 @@ class PartialGenRM:
         }
         self._check_abort()
         if self._client is None:
-            concurrency = getattr(self.args, "reward_max_concurrency", None) or 64
+            concurrency = self.args.reward_max_concurrency or 64
             self._client = httpx.AsyncClient(limits=httpx.Limits(max_connections=concurrency), timeout=None)
         self.active[url] = self.active.get(url, 0) + 1
         try:

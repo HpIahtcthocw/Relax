@@ -169,7 +169,7 @@ def is_eval_reward_pending(sample: Sample) -> bool:
 def collect_eval_rewards(args: Any, *, enabled: bool = True) -> Iterator[DeferredEvalRewards | None]:
     """Collect eligible rewards in this context; other calls still run
     inline."""
-    pending = DeferredEvalRewards() if enabled and not getattr(args, "disable_eval_async_judge", False) else None
+    pending = DeferredEvalRewards() if enabled and not args.disable_eval_async_judge else None
     token = _deferred_eval.set(pending)
     try:
         yield pending
@@ -211,8 +211,8 @@ class EvalJudgeWorker:
         from relax.engine.rewards import RewardExecutor
 
         self._executor = RewardExecutor(
-            max_concurrency=getattr(args, "reward_max_concurrency", None) or 64,
-            num_workers=getattr(args, "reward_num_workers", 16),
+            max_concurrency=args.reward_max_concurrency or 64,
+            num_workers=args.reward_num_workers,
             worker_name_prefix=f"eval_reward_worker_{uuid.uuid4().hex}",
         )
         self._lock = asyncio.Lock()

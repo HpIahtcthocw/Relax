@@ -44,7 +44,7 @@ def run_sft_predict(actor, rollout_id: int) -> None:
     from relax.backends.megatron.initialize import is_megatron_main_rank
 
     args = actor.args
-    scoring = bool(getattr(args, "custom_rm_path", None) or getattr(args, "rm_type", None))
+    scoring = bool(getattr(args, "custom_rm_path", None) or args.rm_type)
     predict_error = None
     # Cache the topology-derived role while Megatron process groups are live.
     # sleep() and update_weights() intentionally destroy the reloadable NCCL

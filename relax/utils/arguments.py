@@ -4569,7 +4569,7 @@ def relax_validate_args(args):
     if args.eval_reward_key is None:
         args.eval_reward_key = args.reward_key
 
-    rm_type_fallback = getattr(args, "rm_type_fallback", None)
+    rm_type_fallback = args.rm_type_fallback
     if rm_type_fallback is not None and rm_type_fallback != "zero":
         # Lazy import: only pay for the rewards package when the flag is set.
         from relax.engine.rewards.registry import list_reward_types

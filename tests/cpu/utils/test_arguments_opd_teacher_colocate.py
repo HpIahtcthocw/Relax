@@ -140,6 +140,7 @@ def _opd_args() -> SimpleNamespace:
         eps_clip=0.2,
         eval_reward_key=None,
         reward_key="reward",
+        rm_type_fallback=None,
         dump_details=None,
         load_debug_rollout_data=None,
         critic_num_gpus_per_node=None,

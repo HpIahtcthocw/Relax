@@ -182,7 +182,7 @@ def build_manifest(args: Namespace, config: AgenticObsConfig, *, cp_size: int | 
         "rollout_batch_size": getattr(args, "rollout_batch_size", None),
         "advantage_estimator": getattr(args, "advantage_estimator", None),
         "agentic_custom_advantage_path": getattr(args, "agentic_custom_advantage_path", None),
-        "reward_key": getattr(args, "reward_key", None),
+        "reward_key": args.reward_key,
     }
 
 

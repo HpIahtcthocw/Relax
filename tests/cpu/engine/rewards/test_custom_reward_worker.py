@@ -54,6 +54,10 @@ def _make_args(**overrides: Any) -> SimpleNamespace:
         "reward_num_workers": 4,
         "rm_url": None,
         "reward_key": None,
+        "rm_type_infer": False,
+        "rm_type_fallback": None,
+        "disable_eval_async_judge": False,
+        "defer_reward_to_post_process": False,
     }
     defaults.update(overrides)
     return SimpleNamespace(**defaults)

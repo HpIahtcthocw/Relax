@@ -47,6 +47,7 @@ async def test_partial_genrm_rollout_resumes_reward_without_regenerating_policy(
         custom_rm_path=f"{module.__name__}.reward",
         genrm_model_path="judge",
         genrm_sampling_config={"max_response_len": 5},
+        defer_reward_to_post_process=False,
     )
     state = SimpleNamespace(abort_event=asyncio.Event())
     state.partial_genrm = PartialGenRM.from_args(args, state)
@@ -169,6 +170,7 @@ async def test_partial_genrm_abort_does_not_wait_for_generation_transport(monkey
         partial_rollout=True,
         sglang_router_ip="127.0.0.1",
         sglang_router_port=port,
+        defer_reward_to_post_process=False,
     )
     state = SimpleNamespace(
         abort_event=asyncio.Event(), aborted=False, evaluating=0, protected_pendings=set(), pendings=set()
