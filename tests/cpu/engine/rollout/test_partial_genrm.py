@@ -23,7 +23,11 @@ MESSAGES = [{"role": "user", "content": "Score this response"}]
 
 @pytest.fixture
 async def judge(monkeypatch):
-    args = Namespace(genrm_model_path="judge", genrm_sampling_config={"max_response_len": 5})
+    args = Namespace(
+        genrm_model_path="judge",
+        genrm_sampling_config={"max_response_len": 5},
+        reward_max_concurrency=64,
+    )
     state = SimpleNamespace(abort_event=asyncio.Event())
     helper = PartialGenRM(args, state)
     helper.tokenizers["__default__"] = SimpleNamespace(
@@ -303,7 +307,12 @@ def test_partial_genrm_requires_explicit_async_opt_in(monkeypatch):
     async def legacy(args, sample, **kwargs):
         return 1
 
-    args = Namespace(partial_rollout=True, custom_rm_path="reward", genrm_model_path="judge")
+    args = Namespace(
+        partial_rollout=True,
+        custom_rm_path="reward",
+        genrm_model_path="judge",
+        defer_reward_to_post_process=False,
+    )
     monkeypatch.setattr(partial_genrm, "load_function", lambda path: legacy)
     assert PartialGenRM.from_args(args, None) is None
 

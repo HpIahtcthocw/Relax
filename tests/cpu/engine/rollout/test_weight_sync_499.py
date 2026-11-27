@@ -432,6 +432,13 @@ def _rollout_args(**overrides):
         "num_iters_per_train_update": 1,
         "partial_rollout": False,
         "use_dynamic_global_batch_size": False,
+        "reward_max_concurrency": 64,
+        "reward_num_workers": 16,
+        "rm_type": None,
+        "rm_type_infer": False,
+        "rm_type_fallback": None,
+        "disable_eval_async_judge": False,
+        "defer_reward_to_post_process": False,
     }
     values.update(overrides)
     return SimpleNamespace(**values)
