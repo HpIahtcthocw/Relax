@@ -438,8 +438,8 @@ class RewardExecutor:
             metadata_rm_type=metadata.get("rm_type"),
             args_rm_type=args.rm_type,
             label=sample.label,
-            infer=args.rm_type_infer,
-            fallback=args.rm_type_fallback,
+            infer=getattr(args, "rm_type_infer", False),
+            fallback=getattr(args, "rm_type_fallback", None),
             sample_index=getattr(sample, "index", None),
         )
         # Managed GenRM may share/offload policy GPUs; only independent
