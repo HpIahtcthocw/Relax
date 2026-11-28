@@ -33,7 +33,12 @@ def adapter_class(monkeypatch):
 
 @pytest.fixture
 def args(tmp_path):
-    return Namespace(use_clearml=True, dump_agentic_obs=str(tmp_path), agentic_obs_run_id="run-1")
+    return Namespace(
+        use_clearml=True,
+        dump_agentic_obs=str(tmp_path),
+        agentic_obs_run_id="run-1",
+        reward_key=None,
+    )
 
 
 @pytest.fixture(autouse=True)

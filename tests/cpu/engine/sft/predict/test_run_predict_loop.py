@@ -358,7 +358,10 @@ async def test_score_predictions_propagates_errors_and_cancels_siblings(monkeypa
     monkeypatch.setattr("relax.engine.rewards.async_rm", reward)
     with pytest.raises(ValueError, match="judge failed"):
         await asyncio.wait_for(
-            predict_loop.score_predictions(rm, SimpleNamespace(), 7, [Sample(index=0), Sample(index=1)]), timeout=5
+            predict_loop.score_predictions(
+                rm, SimpleNamespace(disable_eval_async_judge=False), 7, [Sample(index=0), Sample(index=1)]
+            ),
+            timeout=5,
         )
 
     assert cancelled.is_set()
