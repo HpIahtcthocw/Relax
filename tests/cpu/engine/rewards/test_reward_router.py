@@ -36,7 +36,8 @@ pytestmark = pytest.mark.skipif(not _HAS_FULL_PIPELINE, reason="Full pipeline re
 
 
 def _make_args(**overrides) -> SimpleNamespace:
-    """Mock args namespace with the reward fields the executor reads directly."""
+    """Mock args namespace with the reward fields the executor reads
+    directly."""
     defaults = {
         "rm_type": "openr1mm",
         "custom_rm_path": None,
